@@ -10,7 +10,7 @@ class Graph:
         self.adjacency_list = {} # to hold the edges
         self.num_edges = 0
         self.num_vertices = 0
-        self.verticies = []
+        self.vertex_values = {}
 
     # The following methods return data about specific verticies
 
@@ -30,8 +30,7 @@ class Graph:
 
     def add_vertex(self, id, value):
         if id not in self.adjacency_list:
-            new_vertex = Vertex(id, value)
-            self.verticies.append(new_vertex)
+            self.vertex_values[id] = value
             self.adjacency_list[id] = []
             self.num_vertices += 1
             return 0
@@ -43,11 +42,7 @@ class Graph:
             for node in self.adjacency_list:
                 if id in self.adjacency_list[node]: #vertex exists so delete it
                     self.adjacency_list[node].remove(id)
-                    i = 0
-                    while i < len(self.verticies) and self.verticies[i].id != id:
-                        i += 1
-                    self.verticies.pop(i)
-                    break
+                    self.verticies.pop(key, 1)
             return 0
         else:
             return 1
@@ -73,15 +68,13 @@ class Graph:
 
     # Setter and getter for verticies
     def get_vertex_value(self, id):
-
-        if id in self.adjacency_list:
-            for vertex in self.adjacency_list:
-                if vertex.id == id:
-                    return vertex.value
-
+        return self.vertex_values[id]
 
     def set_vertex_value(self, id, new_value):
-        pass
+        if id in self.vertex_values:
+            return self.vertex_values[key]
+        else:
+            return 1
 
     # Method prototypes (Not implemented yet)
     def get_edge_value(self, x, y):
@@ -92,13 +85,3 @@ class Graph:
     # string conversion: just return the adjacency list
     def __str__(self):
         return str(self.adjacency_list)
-
-
-class Vertex:
-    """
-    A class to represent a single node in a Graph
-    """
-
-    def __init__(self, id, value):
-        self.id = id
-        self.value = value
