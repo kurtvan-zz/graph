@@ -10,7 +10,8 @@ class Graph:
         self.adjacency_list = {} # to hold the edges
         self.num_edges = 0
         self.num_vertices = 0
-        self.vertex_values = {}
+        self.vertex_values = {} # vertex id to vertex value
+        self.edge_values = {}
 
     # The following methods return data about specific verticies
 
